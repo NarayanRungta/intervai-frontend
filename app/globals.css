@@ -8,8 +8,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-mono: var(--font-manrope);
+  --font-heading: var(--font-heading);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,24 +49,26 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --font-sans: var(--font-manrope);
+  --font-heading: var(--font-league-spartan);
+  --background: oklch(0.15 0.03 252);
+  --foreground: oklch(0.96 0.01 240);
+  --card: oklch(0.22 0.02 252);
+  --card-foreground: oklch(0.96 0.01 240);
+  --popover: oklch(0.2 0.02 252);
+  --popover-foreground: oklch(0.96 0.01 240);
+  --primary: oklch(0.73 0.14 235);
+  --primary-foreground: oklch(0.98 0.01 240);
+  --secondary: oklch(0.29 0.02 252);
+  --secondary-foreground: oklch(0.92 0.01 240);
+  --muted: oklch(0.26 0.02 252);
+  --muted-foreground: oklch(0.72 0.02 245);
+  --accent: oklch(0.31 0.04 240);
+  --accent-foreground: oklch(0.96 0.01 240);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.36 0.02 252);
+  --input: oklch(0.36 0.02 252);
+  --ring: oklch(0.73 0.14 235);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -123,8 +125,85 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 20% 12%, color-mix(in oklab, var(--primary) 22%, transparent), transparent 46%),
+      radial-gradient(circle at 84% 88%, color-mix(in oklab, var(--accent) 24%, transparent), transparent 52%),
+      linear-gradient(155deg, color-mix(in oklab, var(--background) 86%, black), var(--background));
+    background-attachment: fixed;
   }
   html {
     @apply font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-heading {
+    font-family: var(--font-heading), sans-serif;
+    letter-spacing: 0.01em;
+  }
+}
+
+@layer utilities {
+  .auth-grid-bg {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(circle at center, black 38%, transparent 88%);
+  }
+
+  .auth-glow {
+    background: radial-gradient(circle, color-mix(in oklab, var(--primary) 72%, white) 0%, transparent 72%);
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  .auth-fade-up {
+    animation: fade-up 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .auth-panel {
+    border: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent);
+    background:
+      linear-gradient(
+        160deg,
+        color-mix(in oklab, var(--background) 84%, #0b1329),
+        color-mix(in oklab, var(--background) 92%, black)
+      );
+    box-shadow: 0 30px 80px -40px color-mix(in oklab, black 74%, var(--primary));
+  }
+
+  .auth-eyebrow {
+    color: color-mix(in oklab, var(--foreground) 78%, #6ec6ff);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  50% {
+    transform: translate3d(-50%, -10px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-glow,
+  .auth-fade-up {
+    animation: none;
   }
 }
