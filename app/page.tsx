@@ -1,5 +1,6 @@
-﻿"use client";
+"use client";
 
+import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import { Mic, Eye, Brain, LineChart, ChevronRight, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -50,9 +51,11 @@ export default function Home() {
         {user ? (
           <div className="flex items-center gap-3 rounded-full border border-blue-500/30 bg-slate-900/80 px-3 py-1.5 shadow-[0_0_15px_rgba(37,99,235,0.15)] backdrop-blur">
             {user.image ? (
-              <img
+              <Image
                 src={user.image}
                 alt={user.name ? `${user.name} avatar` : "GitHub avatar"}
+                width={32}
+                height={32}
                 className="h-8 w-8 rounded-full object-cover ring-2 ring-blue-500/50"
               />
             ) : (

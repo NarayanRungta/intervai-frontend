@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { 
@@ -118,7 +119,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-3">
             <span className="text-sm font-medium text-slate-400">Welcome back, {user.name?.split(' ')[0] ?? "User"}</span>
             {user.image ? (
-              <img src={user.image} alt={user.name} className="h-8 w-8 rounded-full border border-blue-500/50" />
+              <Image src={user.image} alt={user.name ?? "Avatar"} width={32} height={32} className="h-8 w-8 rounded-full border border-blue-500/50" />
             ) : (
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-900 text-xs font-semibold text-blue-100">
                 {user.name?.slice(0, 2).toUpperCase() ?? "GH"}
